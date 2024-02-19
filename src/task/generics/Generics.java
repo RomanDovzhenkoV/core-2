@@ -5,10 +5,47 @@ import task.models.MediumBox;
 import task.models.MicroBox;
 import task.models.SmallBox;
 
-public class Generics {
+import java.util.ArrayList;
+import java.util.List;
 
+public class Generics <T extends BigBox>{
+    public static <T> boolean containsBox(List<T>list, T t){
+      return list.contains(t);
+    }
+    public static <T> void addBox(List<T>list, T t){
+      list.add(t);
+    }
+    public static <T> void infoListBox(List<T>list){
+      System.out.println(list);
+    }
+    public static <T> void copyingBoxesFromOneListToAnother(List<T>listFirst,List<T>listSecond){
+      listFirst.addAll(listSecond);
+    }
 
   public static void main(String[] args) {
+
+    List<BigBox> producer=new ArrayList<>();
+    producer.add(generateBigBox());
+    producer.add(generateMediumBox());
+    producer.add(generatMicroBox());
+    producer.add(generatMicroBox());
+
+    BigBox microBox=generatMicroBox();
+    BigBox smallBox=generatSmallBox();
+
+    List<BigBox> consumer=new ArrayList<>();
+    addBox(consumer,microBox);
+
+    infoListBox(producer);
+    infoListBox(consumer);
+    System.out.println(containsBox(producer,microBox));
+    System.out.println(containsBox(producer,smallBox));
+    copyingBoxesFromOneListToAnother(consumer,producer);
+    infoListBox(consumer);
+
+
+
+
 
   }
 
